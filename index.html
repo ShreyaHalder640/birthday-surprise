@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Surprise For You 💖</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        midnight: '#1a0b2e',
+                        tealGlow: '#00f0ff',
+                        roseGold: '#b76e79',
+                        softPink: '#ffb6c1',
+                        charcoal: '#2a2a2a',
+                        dangerRed: '#ff4d4d'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'glow-teal': '0 0 20px rgba(0, 240, 255, 0.6)',
+                        'glow-pink': '0 0 20px rgba(255, 182, 193, 0.6)',
+                        'glow-red': '0 0 20px rgba(255, 77, 77, 0.6)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS for 2026 Bubbly-Elegant Animations -->
+    <style>
+        body {
+            background: radial-gradient(circle at center, #2a0845 0%, #1a0b2e 100%);
+            margin: 0;
+            overflow-x: hidden;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            transition: all 0.4s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(0, 240, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.15);
+        }
+
+        /* Bubble Animation System */
+        .bubble {
+            position: fixed;
+            bottom: -50px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.01));
+            backdrop-filter: blur(3px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1);
+            animation: floatUp linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-120vh) translateX(20px) scale(1.5); opacity: 0; }
+        }
+
+        /* Page Transitions */
+        .section-container {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(20px);
+            position: relative;
+            z-index: 10;
+        }
+        .section-container.active {
+            display: flex;
+        }
+        .section-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Miniature Chibi Portal Animations */
+        .portal-wrapper {
+            position: absolute;
+            bottom: 110%;
+            right: 0;
+            transform-origin: bottom center;
+            transform: scale(0);
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            pointer-events: none;
+        }
+        .portal-wrapper.pop-out {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .portal-glow {
+            animation: pulsePortal 2s infinite alternate;
+        }
+
+        @keyframes pulsePortal {
+            0% { filter: blur(5px) drop-shadow(0 0 10px rgba(255, 77, 77, 0.5)); }
+            100% { filter: blur(8px) drop-shadow(0 0 25px rgba(255, 77, 77, 0.9)); }
+        }
+
+        /* Scroll Animation for Letter */
+        .letter-scroll {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .letter-scroll.unrolled {
+            max-height: 3000px; /* Increased to accommodate longer text */
+        }
+
+        /* Glowing text gradient */
+        .text-gradient {
+            background: linear-gradient(135deg, #00f0ff, #ffb6c1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Funny frame animations */
+        .funny-frame {
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .funny-frame:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            z-index: 20;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1a0b2e; }
+        ::-webkit-scrollbar-thumb { background: #b76e79; border-radius: 10px; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Ambient Floating Bubbles Container -->
+    <div id="ambient-bubbles"></div>
+
+    <!-- MAIN APP WRAPPER -->
+    <main class="relative min-h-screen w-full flex flex-col items-center justify-center p-4">
+
+        <!-- ==============================================
+             SECTION 1: THE GATEWAY
+             ============================================== -->
+        <section id="section-1" class="section-container active visible flex-col items-center justify-center w-full max-w-lg">
+            
+            <div class="glass-panel p-10 w-full text-center relative shadow-glass border-t border-l border-white/20">
+                
+                <!-- Cute SVG Bear Graphic -->
+                <div class="mb-6 relative">
+                    <div class="absolute inset-0 bg-roseGold/20 blur-xl rounded-full scale-150"></div>
+                    <svg viewBox="0 0 100 100" class="w-32 h-32 mx-auto drop-shadow-2xl relative z-10">
+                        <circle cx="25" cy="25" r="16" fill="#b76e79" />
+                        <circle cx="75" cy="25" r="16" fill="#b76e79" />
+                        <circle cx="25" cy="25" r="8" fill="#ffb6c1" />
+                        <circle cx="75" cy="25" r="8" fill="#ffb6c1" />
+                        <circle cx="50" cy="55" r="42" fill="#b76e79" />
+                        <ellipse cx="50" cy="65" rx="20" ry="15" fill="#ffe4e1" />
+                        <circle cx="35" cy="48" r="4.5" fill="#1a0b2e" />
+                        <circle cx="65" cy="48" r="4.5" fill="#1a0b2e" />
+                        <circle cx="33" cy="46" r="1.5" fill="#ffffff" />
+                        <circle cx="63" cy="46" r="1.5" fill="#ffffff" />
+                        <circle cx="50" cy="60" r="4" fill="#1a0b2e" />
+                        <path d="M 43 66 Q 50 72 57 66" stroke="#1a0b2e" fill="none" stroke-width="2.5" stroke-linecap="round" />
+                    </svg>
+                </div>
+
+                <h1 class="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight">
+                    I got a <span class="text-gradient">surprise</span> for you...
+                </h1>
+                <p class="text-lg text-white/80 mb-10 font-light">Do you want to see?</p>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center relative">
+                    <button onclick="advanceToSection('section-2')" class="px-8 py-3 rounded-full bg-transparent border-2 border-tealGlow text-tealGlow font-semibold text-lg transition-all duration-300 hover:bg-tealGlow hover:text-midnight shadow-glow-teal hover:shadow-[0_0_30px_rgba(0,240,255,0.8)] w-40">
+                        Yes ✨
+                    </button>
+
+                    <div class="relative inline-block">
+                        <button id="btn-no" class="px-8 py-3 rounded-full bg-charcoal border-2 border-dangerRed/50 text-white/80 font-semibold text-lg transition-all duration-300 hover:border-dangerRed hover:text-white w-40 z-10 relative">
+                            No
+                        </button>
+
+                        <!-- MINIATURE-YOU 'NO' PORTAL INTERACTION -->
+                        <div id="chibi-portal" class="portal-wrapper w-48 h-56 z-20 -right-10 pointer-events-none drop-shadow-2xl">
+                            <div class="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-white text-midnight text-xs font-bold py-2 px-4 rounded-xl shadow-lg whitespace-nowrap z-30">
+                                Are you sure about that, pookie? 🥺
+                                <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rotate-45"></div>
+                            </div>
+
+                            <svg viewBox="0 0 200 300" class="w-full h-full relative z-20">
+                                <ellipse cx="100" cy="270" rx="70" ry="15" fill="rgba(255, 77, 77, 0.3)" class="portal-glow" />
+                                <ellipse cx="100" cy="270" rx="50" ry="8" fill="rgba(26, 11, 46, 0.8)" />
+                                <path d="M 85 240 L 85 270 M 115 240 L 115 270" stroke="#ffe0bd" stroke-width="8" stroke-linecap="round" />
+                                <path d="M 75 140 L 125 140 L 155 245 L 45 245 Z" fill="#ffb6c1" />
+                                <circle cx="100" cy="160" r="5" fill="#ff69b4" opacity="0.7"/>
+                                <circle cx="70" cy="180" r="5" fill="#ff69b4" opacity="0.7"/>
+                                <circle cx="130" cy="180" r="5" fill="#ff69b4" opacity="0.7"/>
+                                <circle cx="100" cy="200" r="5" fill="#ff69b4" opacity="0.7"/>
+                                <circle cx="60" cy="220" r="5" fill="#ff69b4" opacity="0.7"/>
+                                <circle cx="140" cy="220" r="5" fill="#ff69b4" opacity="0.7"/>
+                                <circle cx="100" cy="235" r="5" fill="#ff69b4" opacity="0.7"/>
+                                <circle cx="120" cy="215" r="5" fill="#ff69b4" opacity="0.7"/>
+                                <circle cx="80" cy="215" r="5" fill="#ff69b4" opacity="0.7"/>
+                                <path d="M 45 245 Q 55 255 65 245 Q 75 255 85 245 Q 95 255 105 245 Q 115 255 125 245 Q 135 255 145 245 Q 155 255 155 245" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M 75 145 Q 40 170 60 200" fill="none" stroke="#ffe0bd" stroke-width="10" stroke-linecap="round" />
+                                <path d="M 125 145 Q 160 170 140 200" fill="none" stroke="#ffe0bd" stroke-width="10" stroke-linecap="round" />
+                                <circle cx="100" cy="90" r="45" fill="#ffe0bd" />
+                                <path d="M 50 90 C 50 10 150 10 150 90 C 165 140 145 160 145 160 C 145 160 135 110 100 80 C 65 110 55 160 55 160 C 55 160 35 140 50 90 Z" fill="#1a1a1a" />
+                                <path d="M 55 75 Q 100 45 145 75 Q 120 90 100 70 Q 80 90 55 75 Z" fill="#1a1a1a" />
+                                <path d="M 65 90 L 85 95" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round" />
+                                <path d="M 135 90 L 115 95" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round" />
+                                <ellipse cx="75" cy="100" rx="5" ry="8" fill="#000" />
+                                <ellipse cx="125" cy="100" rx="5" ry="8" fill="#000" />
+                                <circle cx="73" cy="98" r="2" fill="#fff" />
+                                <circle cx="123" cy="98" r="2" fill="#fff" />
+                                <ellipse cx="60" cy="110" rx="8" ry="4" fill="#ff69b4" opacity="0.6" />
+                                <ellipse cx="140" cy="110" rx="8" ry="4" fill="#ff69b4" opacity="0.6" />
+                                <path d="M 95 115 Q 100 110 105 115" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==============================================
+             SECTION 2: MEMORY LANE
+             ============================================== -->
+        <section id="section-2" class="section-container flex-col items-center justify-start w-full max-w-5xl py-10 px-4">
+            
+            <div class="text-center mb-10 mt-10">
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-4 text-gradient drop-shadow-lg">Our Memory Lane</h2>
+                <p class="text-white/70 text-lg">A tiny glimpse of our beautiful timeline 📸</p>
+            </div>
+
+            <!-- Photo Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full mb-16">
+                <!-- Placeholders -->
+                <div class="glass-card group overflow-hidden relative aspect-[4/5] flex items-center justify-center">
+                    <img src="PLACEHOLDER_GALLERY_1.jpg" alt="Memory 1" class="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-110" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="hidden absolute inset-0 flex-col items-center justify-center bg-white/5">
+                        <span class="text-4xl mb-2">✨</span>
+                        <span class="text-white/60 font-medium">Memory #1</span>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-x-[-100%] group-hover:translate-x-[100%]"></div>
+                </div>
+
+                <div class="glass-card group overflow-hidden relative aspect-[4/5] flex items-center justify-center">
+                    <img src="PLACEHOLDER_GALLERY_2.jpg" alt="Memory 2" class="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-110" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="hidden absolute inset-0 flex-col items-center justify-center bg-white/5">
+                        <span class="text-4xl mb-2">💖</span>
+                        <span class="text-white/60 font-medium">Memory #2</span>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-x-[-100%] group-hover:translate-x-[100%]"></div>
+                </div>
+
+                <div class="glass-card group overflow-hidden relative aspect-[4/5] flex items-center justify-center">
+                    <img src="PLACEHOLDER_GALLERY_3.jpg" alt="Memory 3" class="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-110" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="hidden absolute inset-0 flex-col items-center justify-center bg-white/5">
+                        <span class="text-4xl mb-2">🌟</span>
+                        <span class="text-white/60 font-medium">Memory #3</span>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-x-[-100%] group-hover:translate-x-[100%]"></div>
+                </div>
+
+                <div class="glass-card group overflow-hidden relative aspect-[4/5] flex items-center justify-center">
+                    <img src="PLACEHOLDER_GALLERY_4.jpg" alt="Memory 4" class="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-110" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="hidden absolute inset-0 flex-col items-center justify-center bg-white/5">
+                        <span class="text-4xl mb-2">🥰</span>
+                        <span class="text-white/60 font-medium">Memory #4</span>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-x-[-100%] group-hover:translate-x-[100%]"></div>
+                </div>
+
+                <div class="glass-card group overflow-hidden relative aspect-[4/5] flex items-center justify-center">
+                    <img src="PLACEHOLDER_GALLERY_5.jpg" alt="Memory 5" class="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-110" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="hidden absolute inset-0 flex-col items-center justify-center bg-white/5">
+                        <span class="text-4xl mb-2">✈️</span>
+                        <span class="text-white/60 font-medium">Memory #5</span>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-x-[-100%] group-hover:translate-x-[100%]"></div>
+                </div>
+
+                <div class="glass-card group overflow-hidden relative aspect-[4/5] flex items-center justify-center">
+                    <img src="PLACEHOLDER_GALLERY_6.jpg" alt="Memory 6" class="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-110" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="hidden absolute inset-0 flex-col items-center justify-center bg-white/5">
+                        <span class="text-4xl mb-2">💍</span>
+                        <span class="text-white/60 font-medium">Memory #6</span>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-x-[-100%] group-hover:translate-x-[100%]"></div>
+                </div>
+            </div>
+
+            <!-- Advance Button -->
+            <button onclick="advanceToSection('section-delulu')" class="px-10 py-4 rounded-full bg-tealGlow/20 border-2 border-tealGlow text-white font-bold text-lg transition-all duration-300 hover:bg-tealGlow hover:text-midnight shadow-glow-teal mb-10 flex items-center gap-3 group">
+                Wait, there's more...
+                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </button>
+
+        </section>
+
+        <!-- ==============================================
+             SECTION 2.5: DELULU BEBI (Funny Pics)
+             ============================================== -->
+        <section id="section-delulu" class="section-container flex-col items-center justify-center w-full max-w-4xl py-20 px-4 min-h-screen">
+            
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-extrabold mb-4 text-gradient drop-shadow-lg tracking-wider">Delulu Bebi 🤪</h2>
+                <p class="text-white/70 text-xl font-light">Because you're cute even when you're goofy.</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16 mb-20 w-full">
+                
+                <!-- Funny Pic 1 (Tilted Left) -->
+                <div class="glass-card funny-frame p-3 bg-white/10 -rotate-3 w-64 h-80 flex flex-col items-center justify-center shadow-2xl relative group">
+                    <!-- Tape effect -->
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/30 backdrop-blur-sm rotate-2 shadow-sm z-10"></div>
+                    
+                    <div class="w-full h-full bg-midnight/50 rounded-lg overflow-hidden relative">
+                        <img src="PLACEHOLDER_FUNNY_1.jpg" alt="Funny pic 1" class="absolute inset-0 w-full h-full object-cover opacity-80" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="hidden absolute inset-0 flex-col items-center justify-center">
+                            <span class="text-5xl mb-2">🤡</span>
+                            <span class="text-white/60 font-medium text-center px-2">Insert Derp Face 1</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Funny Pic 2 (Tilted Right) -->
+                <div class="glass-card funny-frame p-3 bg-white/10 rotate-3 w-64 h-80 flex flex-col items-center justify-center shadow-2xl relative group mt-10 md:mt-0">
+                    <!-- Tape effect -->
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-16 h-6 bg-white/30 backdrop-blur-sm -rotate-2 shadow-sm z-10"></div>
+                    
+                    <div class="w-full h-full bg-midnight/50 rounded-lg overflow-hidden relative">
+                        <img src="PLACEHOLDER_FUNNY_2.jpg" alt="Funny pic 2" class="absolute inset-0 w-full h-full object-cover opacity-80" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="hidden absolute inset-0 flex-col items-center justify-center">
+                            <span class="text-5xl mb-2">🥸</span>
+                            <span class="text-white/60 font-medium text-center px-2">Insert Derp Face 2</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Advance Button to Letter -->
+            <button onclick="advanceToSection('section-letter')" class="px-10 py-4 rounded-full bg-roseGold/20 border-2 border-roseGold text-white font-bold text-lg transition-all duration-300 hover:bg-roseGold hover:shadow-glow-pink flex items-center gap-3 group">
+                Read My Letter 💌
+                <svg class="w-5 h-5 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </button>
+
+        </section>
+
+        <!-- ==============================================
+             SECTION 3: THE BIRTHDAY LETTER
+             ============================================== -->
+        <section id="section-letter" class="section-container flex-col items-center justify-center w-full max-w-4xl py-20 px-4 min-h-screen">
+            
+            <!-- Bridge Connection Map Graphic -->
+            <div class="w-full mb-12 relative overflow-visible">
+                <svg viewBox="0 0 800 250" class="w-full max-w-3xl mx-auto drop-shadow-xl overflow-visible">
+                    <defs>
+                        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="6" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                    </defs>
+                    
+                    <!-- Arc Line -->
+                    <path d="M 150 180 Q 400 0 650 180" fill="none" stroke="rgba(255, 182, 193, 0.4)" stroke-width="3" stroke-dasharray="8 8" />
+                    
+                    <!-- Traveling Heart/Light Animation along path -->
+                    <circle r="6" fill="#00f0ff" filter="url(#glow)">
+                        <animateMotion dur="4s" repeatCount="indefinite" path="M 150 180 Q 400 0 650 180" />
+                    </circle>
+                    <circle r="3" fill="#ffffff">
+                        <animateMotion dur="4s" repeatCount="indefinite" path="M 150 180 Q 400 0 650 180" />
+                    </circle>
+
+                    <!-- Pittsburgh Pin -->
+                    <g transform="translate(150, 180)">
+                        <circle r="12" fill="rgba(0, 240, 255, 0.2)" filter="url(#glow)">
+                            <animate attributeName="r" values="12;18;12" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle r="6" fill="#00f0ff" />
+                        <text y="35" fill="#fff" font-size="16" font-family="Inter" text-anchor="middle" font-weight="600" letter-spacing="1">Pittsburgh</text>
+                    </g>
+
+                    <!-- Dhaka Pin -->
+                    <g transform="translate(650, 180)">
+                        <circle r="12" fill="rgba(255, 182, 193, 0.2)" filter="url(#glow)">
+                            <animate attributeName="r" values="12;18;12" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle r="6" fill="#ffb6c1" />
+                        <text y="35" fill="#fff" font-size="16" font-family="Inter" text-anchor="middle" font-weight="600" letter-spacing="1">Dhaka</text>
+                    </g>
+                    
+                    <!-- Distance Text -->
+                    <text x="400" y="80" fill="rgba(255,255,255,0.6)" font-size="14" font-family="Inter" text-anchor="middle" font-style="italic">Miles away, but close at heart.</text>
+                </svg>
+            </div>
+
+            <!-- Digital Scroll/Letter Container -->
+            <div class="glass-panel w-full max-w-2xl p-8 md:p-12 text-center relative border-t border-l border-white/30 shadow-[0_0_50px_rgba(183,110,121,0.15)] letter-scroll unrolled" id="letter-content">
+                
+                <h1 class="text-3xl md:text-5xl font-extrabold mb-8 text-roseGold tracking-wide">
+                    My Most Favorite Human
+                </h1>
+                
+                <div class="space-y-6 text-lg leading-relaxed text-white/90 font-light text-left mx-auto max-w-xl">
+                    <p>Happy Birthday! 🎉</p>
+                    
+                    <p>Hey,</p>
+                    
+                    <p>
+                        To the rest of the world, I probably seem pretty quiet, calm, and maybe even a little nonchalant. But I need you to know that when it comes to you, everything changes.
+                    </p>
+                    
+                    <p>
+                        You mean the absolute world to me. It’s a quiet kind of certainty, but it’s the strongest thing I feel. Honestly, if there are lifetimes after this one, I hope I get to find you and be your girl in every single one of them.
+                    </p>
+                    
+                    <p>
+                        I might keep things low-key on the outside, but I am fiercely protective of you. If anyone or anything ever tries to hurt you, bring you down, or make you feel small, they’ll have to go through me first. I will always be your biggest supporter, and your safest place to land, no matter what life throws at us.
+                    </p>
+                    
+                    <p>
+                        With you, I am completely me (humpty dumpty huh). I love you with everything I've got.
+                    </p>
+
+                    <p>
+                        Since you’ve unlocked the surprise: I know that I cannot do much from here, but I will always try my best. May every girl get a man like you in their life that makes them want to stay forever. May I grow enough to be the ideal girl for you.
+                    </p>
+                    
+                    <p>
+                        I’m so incredibly glad you’re mine.
+                    </p>
+
+                    <p class="pt-4 font-medium italic">
+                        Always,
+                    </p>
+                </div>
+                
+                <div class="mt-12 flex justify-center">
+                    <button id="btn-celebrate" class="px-8 py-4 rounded-full bg-gradient-to-r from-tealGlow to-softPink text-midnight font-extrabold text-xl transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(255,182,193,0.8)] border-2 border-transparent hover:border-white">
+                        Celebrate! 🎊
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JavaScript Interactions -->
+    <script>
+        // 1. Ambient Bubble Generator
+        function createAmbientBubbles() {
+            const container = document.getElementById('ambient-bubbles');
+            const numBubbles = 25; 
+            
+            for (let i = 0; i < numBubbles; i++) {
+                let bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                
+                let size = Math.random() * 40 + 10; 
+                let left = Math.random() * 100; 
+                let duration = Math.random() * 10 + 8; 
+                let delay = Math.random() * 5; 
+
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${left}vw`;
+                bubble.style.animationDuration = `${duration}s`;
+                bubble.style.animationDelay = `${delay}s`;
+
+                container.appendChild(bubble);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', createAmbientBubbles);
+
+
+        // 2. Journey Navigation System
+        function advanceToSection(targetId) {
+            const currentActive = document.querySelector('.section-container.active');
+            const targetSection = document.getElementById(targetId);
+
+            if(currentActive) {
+                currentActive.classList.remove('visible');
+                
+                setTimeout(() => {
+                    currentActive.classList.remove('active');
+                    
+                    targetSection.classList.add('active');
+                    void targetSection.offsetWidth;
+                    targetSection.classList.add('visible');
+
+                    if(targetId === 'section-letter' || targetId === 'section-delulu') {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                }, 800); 
+            }
+        }
+
+
+        // 3. 'NO' Button Easter Egg Logic (Miniature Chibi)
+        const btnNo = document.getElementById('btn-no');
+        const chibiPortal = document.getElementById('chibi-portal');
+        
+        btnNo.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            chibiPortal.classList.add('pop-out');
+            btnNo.classList.replace('border-dangerRed/50', 'border-dangerRed');
+            btnNo.classList.replace('text-white/80', 'text-white');
+            btnNo.innerText = "Still No? 🥺";
+            
+            btnNo.animate([
+                { transform: 'translateX(0)' },
+                { transform: 'translateX(-5px)' },
+                { transform: 'translateX(5px)' },
+                { transform: 'translateX(-5px)' },
+                { transform: 'translateX(5px)' },
+                { transform: 'translateX(0)' }
+            ], { duration: 400, easing: 'ease-in-out' });
+        });
+
+
+        // 4. Celebration Confetti/Bubble Explosion
+        const btnCelebrate = document.getElementById('btn-celebrate');
+        
+        btnCelebrate.addEventListener('click', () => {
+            const colors = ['#00f0ff', '#b76e79', '#ffb6c1', '#ffffff', '#ff69b4'];
+            
+            btnCelebrate.innerText = "I Love You to the Moon and Back, Honey! 💖";
+            btnCelebrate.classList.add('pointer-events-none');
+            
+            for(let i = 0; i < 150; i++) {
+                let p = document.createElement('div');
+                p.className = 'fixed rounded-full pointer-events-none z-[100]';
+                
+                let isBubble = Math.random() > 0.5;
+                let size = Math.random() * 12 + 4;
+                let color = colors[Math.floor(Math.random() * colors.length)];
+                
+                if(isBubble) {
+                    p.style.border = `2px solid ${color}`;
+                    p.style.backgroundColor = 'transparent';
+                } else {
+                    p.style.backgroundColor = color;
+                    p.style.boxShadow = `0 0 10px ${color}`;
+                }
+
+                p.style.width = `${size}px`;
+                p.style.height = `${size}px`;
+                
+                const rect = btnCelebrate.getBoundingClientRect();
+                const startX = rect.left + rect.width / 2;
+                const startY = rect.top + rect.height / 2;
+                
+                p.style.left = `${startX}px`;
+                p.style.top = `${startY}px`;
+                
+                let angle = Math.random() * Math.PI * 2;
+                let velocity = 100 + Math.random() * 400; 
+                let tx = Math.cos(angle) * velocity;
+                let ty = Math.sin(angle) * velocity - 100; 
+                
+                p.animate([
+                    { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
+                    { transform: 'translate(-50%, -50%) scale(1.5)', opacity: 1, offset: 0.2 },
+                    { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0)`, opacity: 0 }
+                ], {
+                    duration: 1500 + Math.random() * 1500,
+                    easing: 'cubic-bezier(.17,.89,.32,1.28)',
+                    fill: 'forwards'
+                });
+                
+                document.body.appendChild(p);
+                
+                setTimeout(() => p.remove(), 3000);
+            }
+        });
+
+    </script>
+</body>
+</html>
